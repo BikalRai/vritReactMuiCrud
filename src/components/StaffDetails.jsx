@@ -54,6 +54,18 @@ const StaffDetails = ({ setEditDetails, isLoading, setIsLoading }) => {
         navigate('/create-staff');
     };
 
+    // function to delete
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(
+                `https://63c1863699c0a15d28ec247b.mockapi.io/details/${id}`
+            );
+            getData();
+        } catch (error) {
+            console.log('Error!!');
+        }
+    };
+
     useEffect(() => {
         getData();
     }, []);
@@ -146,7 +158,13 @@ const StaffDetails = ({ setEditDetails, isLoading, setIsLoading }) => {
                                                             </Button>
                                                         </Grid>
                                                         <Grid>
-                                                            <Button>
+                                                            <Button
+                                                                onClick={() => {
+                                                                    handleDelete(
+                                                                        row.id
+                                                                    );
+                                                                }}
+                                                            >
                                                                 <BackspaceIcon fontSize="small" />
                                                             </Button>
                                                         </Grid>

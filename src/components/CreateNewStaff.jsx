@@ -17,17 +17,22 @@ const CreateNewStaff = ({ editDetails: { edit, values } }) => {
     const navigate = useNavigate();
 
     //function to post new staff
-    const postNewStaff = () => {
-        axios
-            .post('https://63c1863699c0a15d28ec247b.mockapi.io/details', {
-                firstName,
-                middleName,
-                lastName,
-                phone,
-            })
-            .then(() => {
-                navigate('/staff-details');
-            });
+    const postNewStaff = async () => {
+        try {
+            await axios.post(
+                'https://63c1863699c0a15d28ec247b.mockapi.io/details',
+                {
+                    firstName,
+                    middleName,
+                    lastName,
+                    phone,
+                }
+            );
+
+            navigate('/staff-details');
+        } catch (error) {
+            console.log('Error!!');
+        }
     };
 
     //functon to handle first name
@@ -64,9 +69,9 @@ const CreateNewStaff = ({ editDetails: { edit, values } }) => {
     };
 
     //function to update data
-    const updateStaff = () => {
-        axios
-            .put(
+    const updateStaff = async () => {
+        try {
+            await axios.put(
                 `https://63c1863699c0a15d28ec247b.mockapi.io/details/${values.id}`,
                 {
                     firstName,
@@ -74,10 +79,12 @@ const CreateNewStaff = ({ editDetails: { edit, values } }) => {
                     lastName,
                     phone,
                 }
-            )
-            .then(() => {
-                navigate('/staff-details');
-            });
+            );
+
+            navigate('/staff-details');
+        } catch (error) {
+            console.log('error!!');
+        }
     };
 
     console.log(newStaff, 'making staff');
